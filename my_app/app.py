@@ -11,7 +11,7 @@ st.title("🎨 Ramadan Greeting Card")
 st.write("Put your name and download")
 
 # المسارات
-template_path = "my_app/template.jpg"
+template_path = "my_app/template.png"
 font_path = "my_app/font.ttf"
 
 # --- القيم الثابتة (استبدل الأرقام أدناه بما ضبطته أنت) ---

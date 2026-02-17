@@ -12,10 +12,11 @@ st.write("اضبط الإعدادات ثم اكتب الاسم لرؤية الن
 template_path = "my_app/template.png" 
 
 st.sidebar.header("إعدادات النص")
-x_pos = st.sidebar.slider("الموقع الأفقي (X)", 0, 2000, 500)
-y_pos = st.sidebar.slider("الموقع العمودي (Y)", 0, 2000, 500)
-font_size = st.sidebar.slider("حجم الخط", 20, 200, 70)
-text_color = st.sidebar.color_picker("لون الخط", "#000000")
+# بدلاً من الـ Sliders، نضع الأرقام التي اخترتها أنت
+x_pos = 402  # ضع رقمك هنا
+y_pos = 1000 # ضع رقمك هنا
+font_size = 55 # ضع رقمك هنا
+text_color = "#FFFFFF" # أو اللون الذي اعتمدته
 
 name = st.text_input("أدخل الاسم هنا:", "اسم الزميل")
 

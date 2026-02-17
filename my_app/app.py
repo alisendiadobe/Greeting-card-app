@@ -9,7 +9,7 @@ st.set_page_config(page_title="مصمم التهنئة الذكي", layout="cent
 st.title("🎨 صانع بطاقات التهنئة العربية")
 st.write("اضبط الإعدادات ثم اكتب الاسم لرؤية النتيجة فوراً")
 
-template_path = "template.jpg" 
+template_path = "my_app/template.png" 
 
 st.sidebar.header("إعدادات النص")
 x_pos = st.sidebar.slider("الموقع الأفقي (X)", 0, 2000, 500)
@@ -27,7 +27,7 @@ if name:
         bidi_text = get_display(reshaped_text)
         
         # تأكد أن اسم الملف هنا يطابق ملف الخط الذي رفعته (مثلاً font.ttf)
-        font = ImageFont.truetype("font.ttf", font_size)
+        font = ImageFont.truetype("my_app/font.ttf", font_size)
 
         draw.text((x_pos, y_pos), bidi_text, fill=text_color, font=font)
         st.image(img, caption="معاينة البطاقة", use_column_width=True)

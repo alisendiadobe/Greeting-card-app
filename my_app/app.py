@@ -10,12 +10,11 @@ st.set_page_config(page_title="مصمم بطاقات التهنئة", layout="ce
 st.title("🎨 صانع بطاقات التهنئة الاحترافي")
 st.write("اكتب الاسم، اضبط الموقع، ثم حمل بطاقتك")
 
-# مسار الملفات - تأكد أنها بنفس المجلد على GitHub
-# إذا كانت داخل مجلد اسمه my_app، غير المسار إلى "my_app/template.jpg"
-template_path = "template.jpg"
-font_path = "font.ttf"
+# المسارات المحدثة لتشمل مجلد my_app
+template_path = "my_app/template.jpg"
+font_path = "my_app/font.ttf"
 
-# لوحة التحكم الجانبية لضبط الإعدادات بدقة
+# لوحة التحكم الجانبية
 st.sidebar.header("🛠 إعدادات التصميم")
 x_pos = st.sidebar.slider("نقطة المنتصف الأفقية (X)", 0, 2000, 1000)
 y_pos = st.sidebar.slider("الموقع العمودي (Y)", 0, 2000, 1000)
@@ -31,7 +30,7 @@ if name:
         img = Image.open(template_path).convert("RGB")
         draw = ImageDraw.Draw(img)
 
-        # 2. معالجة النص العربي (الربط والاتجاه)
+        # 2. معالجة النص العربي
         reshaped_text = arabic_reshaper.reshape(name)
         bidi_text = get_display(reshaped_text)
 
@@ -39,12 +38,10 @@ if name:
         font = ImageFont.truetype(font_path, font_size)
 
         # 4. حساب أبعاد النص لتوسيطه (السر هنا!)
-        # نستخدم textbbox لمعرفة عرض النص بدقة
         bbox = draw.textbbox((0, 0), bidi_text, font=font)
         text_width = bbox[2] - bbox[0]
         
-        # حساب إحداثي X الجديد (نطرح نصف عرض النص من نقطة المنتصف المختارة)
-        # هذا يجعل النص يتمدد لليمين واليسار بالتساوي من المركز
+        # حساب إحداثي X الجديد ليكون النص دائماً في المنتصف بالنسبة لنقطة X المختارة
         adjusted_x = x_pos - (text_width / 2)
 
         # 5. الرسم على الصورة
@@ -64,9 +61,6 @@ if name:
         )
         
     except FileNotFoundError:
-        st.error("خطأ: لم يتم العثور على ملف الصورة أو الخط. تأكد من وجود template.jpg و font.ttf")
+        st.error(f"خطأ: لم يتم العثور على الملفات في مسار {template_path}. تأكد من صحة أسماء الملفات داخل مجلد my_app.")
     except Exception as e:
         st.error(f"حدث خطأ غير متوقع: {e}")
-
-st.divider()
-st.info("نصيحة: بعد ضبط الأرقام المثالية، يمكنك تثبيتها في الكود وإخفاء شريط الإعدادات.")

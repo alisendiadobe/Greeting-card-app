@@ -11,7 +11,6 @@ st.write("اضبط الإعدادات ثم اكتب الاسم لرؤية الن
 
 template_path = "my_app/template.png" 
 
-st.sidebar.header("إعدادات النص")
 # بدلاً من الـ Sliders، نضع الأرقام التي اخترتها أنت
 x_pos = 402  # ضع رقمك هنا
 y_pos = 1000 # ضع رقمك هنا

@@ -11,7 +11,7 @@ st.title("🎨 صانع بطاقات التهنئة الاحترافي")
 st.write("اكتب الاسم، اضبط الموقع، ثم حمل بطاقتك")
 
 # المسارات المحدثة لتشمل مجلد my_app
-template_path = "my_app/template.jpg"
+template_path = "my_app/template.png"
 font_path = "my_app/font.ttf"
 
 # لوحة التحكم الجانبية

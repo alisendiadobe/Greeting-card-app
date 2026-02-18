@@ -1,3 +1,12 @@
+# كود لإخفاء القائمة الجانبية والعلامة المائية
+hide_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_style, unsafe_allow_html=True)
 import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
 import arabic_reshaper

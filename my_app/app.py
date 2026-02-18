@@ -7,8 +7,8 @@ import io
 # إعداد الصفحة
 st.set_page_config(page_title="Ramadan Greeting Card", layout="centered")
 
-st.title("🎨 Ramadan Greeting Card")
-st.write("Put your name and download")
+st.title("🌙 Ramadan Greeting Card")
+st.write("Put your name and download ✨")
 
 # المسارات
 template_path = "my_app/template.png"

@@ -6,6 +6,16 @@ import io
 
 # إعداد الصفحة
 st.set_page_config(page_title="Ramadan Greeting Card", layout="centered")
+# كود سحري لإخفاء القائمة، العلامة المائية، وأي إشارة للمطور في الأسفل
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            #stDecoration {display:none !important;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
 st.title("🌙 Ramadan Greeting Card")
 st.write("Put your name and download ✨")

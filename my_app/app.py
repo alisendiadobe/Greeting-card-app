@@ -72,7 +72,7 @@ TEMPLATE_PATH = "my_app/template.jpg"
 FONT_PATH = "my_app/font.ttf"
 
 # 4. App Interface
-st.markdown("<h1>✨ Eid Greeting Card</h1>", unsafe_allow_html=True)
+st.markdown("<h1>✨ Eid Greeting Card✨ </h1>", unsafe_allow_html=True)
 st.markdown("<p>Share the happiness! Enter your name below to generate your card.</p>", unsafe_allow_html=True)
 
 name = st.text_input("", placeholder="Type your name here...")

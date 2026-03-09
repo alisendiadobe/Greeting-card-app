@@ -26,7 +26,7 @@ COLOR_VAL = "#000000"
 if dev_mode:
     st.sidebar.info("ضبط إحداثيات العيد الجديد:")
     X_VAL = st.sidebar.slider("نقطة المنتصف X", 0, 3000, 1000)
-    Y_VAL = st.sidebar.slider("الموقع العمودي Y", 0, 3000, 1200)
+    Y_VAL = st.sidebar.slider("الموقع العمودي Y", 0, 6000, 1200)
     SIZE_VAL = st.sidebar.slider("حجم الخط", 10, 500, 90)
     COLOR_VAL = st.sidebar.color_picker("لون الخط", "#000000")
     # طباعة القيم الحالية ليسهل عليك نسخها لاحقاً

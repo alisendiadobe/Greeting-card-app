@@ -98,7 +98,24 @@ if name:
             file_name=f"Eid_Card_{name}.png",
             mime="image/png"
         )
-        
+        /* Golden Button Style */
+    .stDownloadButton > button {
+        background-color: #fff204 !important; /* اللون الأصفر الذهبي */
+        color: #4B3621 !important; /* نص بني داكن جداً للوضوح */
+        border: none;
+        border-radius: 12px;
+        padding: 10px 25px;
+        font-weight: bold;
+        width: 100%;
+        transition: 0.3s;
+    }
+    
+    /* تأثير عند تمرير الماوس */
+    .stDownloadButton > button:hover {
+        background-color: #4B3621 !important;
+        color: #fff204 !important;
+        border: 1px solid #fff204;
+    }
     except Exception as e:
         st.error(f"Error loading files. Check if 'template.jpg' exists in 'my_app' folder.")
 

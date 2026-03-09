@@ -4,61 +4,75 @@ import arabic_reshaper
 from bidi.algorithm import get_display
 import io
 
-# 1. إعداد الصفحة
-st.set_page_config(page_title="مصمم بطاقات العيد", layout="centered")
+# 1. إعداد الصفحة (العنوان الذي يظهر في المتصفح)
+st.set_page_config(page_title="بطاقات تهنئة العيد", layout="centered")
 
-# 2. كود إخفاء العناصر المزعجة (جرب هذا الإصدار الأحدث)
-st.markdown("""
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden; display: none !important;}
-    header {visibility: hidden;}
-    </style>
-    """, unsafe_allow_html=True)
+# 2. كود إخفاء القوائم والعلامات المائية (لإعطاء مظهر رسمي)
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden; display: none !important;}
+            header {visibility: hidden;}
+            div[data-testid="stDecoration"] {display: none !important;}
+            .stAppDeployButton {display: none !important;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
-# 3. وضع المطور (خيار سري للتعديل)
-dev_mode = st.sidebar.checkbox("🛠 وضع الضبط (تعديل التصميم)")
+# 3. القيم الثابتة التي اخترتها أنت (تم تثبيتها لعدم التعديل)
+X_CENTER = 2152
+Y_POS = 3762
+FONT_SIZE = 263
+TEXT_COLOR = "#fff204"  # اللون الأصفر الذي اخترته
 
-# القيم الافتراضية (عدلها هنا مرة واحدة)
-X_VAL, Y_VAL, SIZE_VAL = 1000, 1200, 90
-COLOR_VAL = "#000000"
-
-if dev_mode:
-    st.sidebar.info("ضبط إحداثيات العيد الجديد:")
-    X_VAL = st.sidebar.slider("نقطة المنتصف X", 0, 3000, 1000)
-    Y_VAL = st.sidebar.slider("الموقع العمودي Y", 0, 6000, 1200)
-    SIZE_VAL = st.sidebar.slider("حجم الخط", 10, 500, 90)
-    COLOR_VAL = st.sidebar.color_picker("لون الخط", "#000000")
-    # طباعة القيم الحالية ليسهل عليك نسخها لاحقاً
-    st.sidebar.code(f"X: {X_VAL}, Y: {Y_VAL}\nSize: {SIZE_VAL}")
-
-# 4. المسارات (تأكد من رفع صورة العيد الجديدة باسم eid_template.jpg)
-template_path = "my_app/eid_template.jpg" 
+# 4. مسارات الملفات (تأكد من وجودها في مجلد my_app)
+template_path = "my_app/template.jpg"
 font_path = "my_app/font.ttf"
 
 st.title("🌙 تهنئة عيد الفطر المبارك")
-name = st.text_input("أدخل الاسم الذي تريد وضعه على بطاقة العيد:", "")
+st.write("اكتب اسمك أدناه للحصول على بطاقة التهنئة الخاصة بك")
+
+# خانة إدخال الاسم
+name = st.text_input("أدخل الاسم:", "")
 
 if name:
     try:
+        # فتح الصورة والخط
         img = Image.open(template_path).convert("RGB")
         draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype(font_path, FONT_SIZE)
+
+        # معالجة اللغة العربية
         reshaped_text = arabic_reshaper.reshape(name)
         bidi_text = get_display(reshaped_text)
-        font = ImageFont.truetype(font_path, SIZE_VAL)
 
-        # التوسيط التلقائي السحري
+        # --- معادلة التوسيط التلقائي ---
+        # نحسب عرض النص المدخل مهما كان طوله
         bbox = draw.textbbox((0, 0), bidi_text, font=font)
         text_width = bbox[2] - bbox[0]
-        adjusted_x = X_VAL - (text_width / 2)
+        
+        # نطرح نصف عرض النص من نقطة المركز (2152) ليبقى دائماً في المنتصف
+        adjusted_x = X_CENTER - (text_width / 2)
+        # -------------------------------
 
-        draw.text((adjusted_x, Y_VAL), bidi_text, fill=COLOR_VAL, font=font)
+        # رسم النص على الصورة
+        draw.text((adjusted_x, Y_POS), bidi_text, fill=TEXT_COLOR, font=font)
+
+        # عرض المعاينة للمستخدم
         st.image(img, use_column_width=True)
 
         # زر التحميل
         buf = io.BytesIO()
         img.save(buf, format="PNG")
-        st.download_button(label="تحميل بطاقة العيد ✨", data=buf.getvalue(), file_name=f"Eid_{name}.png")
+        st.download_button(
+            label="تحميل بطاقتك الآن ✨",
+            data=buf.getvalue(),
+            file_name=f"Eid_{name}.png",
+            mime="image/png"
+        )
         
     except Exception as e:
-        st.error(f"تأكد من رفع الصورة الجديدة: {e}")
+        st.error(f"حدث خطأ: تأكد من رفع الملفات بشكل صحيح. تفاصيل: {e}")
+
+st.divider()
+st.caption("كل عام وأنتم بخير")

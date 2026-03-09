@@ -37,7 +37,7 @@ custom_style = f"""
     .main .block-container {{
         background-color: rgba(255, 255, 255, 0.85); 
         padding: 40px;
-        border-radius: 20px;
+        border-radius: 1px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         margin-top: 20px;
     }}
@@ -48,10 +48,10 @@ custom_style = f"""
     .stAppDeployButton {{display: none !important;}}
     .stTextInput>div>div>input {{
         border: 2px solid #fff204;
-        border-radius: 10px;
+        border-radius: 1px;
     }}
     h1, p {{
-        color: #ffffff !important;
+        color: #4f3828 !important;
         text-align: center;
     }}
     </style>

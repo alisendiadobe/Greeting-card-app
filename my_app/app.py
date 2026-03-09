@@ -47,7 +47,7 @@ custom_style = f"""
     /* Golden Button Style */
     .stDownloadButton > button {{
         background-color: #fff204 !important;
-        color: #4B3621 !important;
+        color: #ccb8aa !important;
         border: none;
         border-radius: 12px;
         font-weight: bold;

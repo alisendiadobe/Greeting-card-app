@@ -17,15 +17,14 @@ def get_base64_bin(file_path):
         return base64.b64encode(data).decode()
     return None
 
-# 2. Design & CSS (English UI + Color Updates)
-# We will use the Beige color as a fallback if the image fails
+# 2. Design & CSS
 bg_image_path = 'my_app/bg_eid.jpg'
 bin_str = get_base64_bin(bg_image_path)
 
 if bin_str:
     bg_style = f'background-image: url("data:image/jpeg;base64,{bin_str}");'
 else:
-    bg_style = 'background-color: #F5F5DC;' # Fallback to Beige
+    bg_style = 'background-color: #F5F5DC;'
 
 custom_style = f"""
     <style>
@@ -35,8 +34,6 @@ custom_style = f"""
         background-position: center;
         background-attachment: fixed;
     }}
-    
-    /* Content box transparency */
     .main .block-container {{
         background-color: rgba(255, 255, 255, 0.85); 
         padding: 40px;
@@ -44,26 +41,16 @@ custom_style = f"""
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         margin-top: 20px;
     }}
-
-    /* Hide Streamlit elements */
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden; display: none !important;}}
     header {{visibility: hidden;}}
     div[data-testid="stDecoration"] {{display: none !important;}}
     .stAppDeployButton {{display: none !important;}}
-
-    /* Input field styling - Golden border */
     .stTextInput>div>div>input {{
         border: 2px solid #fff204;
         border-radius: 10px;
     }}
-    
-    /* Heading Color (Brown/Coffee for better contrast on Beige) */
-    h1 {{
-        color: #4B3621 !important;
-        text-align: center;
-    }}
-    p {{
+    h1, p {{
         color: #4B3621 !important;
         text-align: center;
     }}
@@ -71,15 +58,15 @@ custom_style = f"""
     """
 st.markdown(custom_style, unsafe_allow_html=True)
 
-# 3. Fixed Coordinates and Values
+# 3. Fixed Coordinates and Values (Your specific settings)
 X_CENTER = 2152
 Y_POS = 3762
 FONT_SIZE = 263
-TEXT_COLOR = "#fff204" # Your chosen yellow for the name
+TEXT_COLOR = "#fff204"
 TEMPLATE_PATH = "my_app/template.jpg"
 FONT_PATH = "my_app/font.ttf"
 
-# 4. App Interface (English)
+# 4. App Interface
 st.markdown("<h1>✨ Eid Greeting Card</h1>", unsafe_allow_html=True)
 st.markdown("<p>Share the happiness! Enter your name below to generate your card.</p>", unsafe_allow_html=True)
 
@@ -87,14 +74,32 @@ name = st.text_input("", placeholder="Type your name here...")
 
 if name:
     try:
-        # Image Processing
         img = Image.open(TEMPLATE_PATH).convert("RGB")
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
 
-        # Arabic/Bidi Support
         reshaped_text = arabic_reshaper.reshape(name)
         bidi_text = get_display(reshaped_text)
 
-        # Auto-Centering Logic
-        bbox = draw.
+        # Correcting the line that caused the error
+        bbox = draw.textbbox((0, 0), bidi_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        adjusted_x = X_CENTER - (text_width / 2)
+
+        draw.text((adjusted_x, Y_POS), bidi_text, fill=TEXT_COLOR, font=font)
+
+        st.image(img, use_column_width=True)
+
+        buf = io.BytesIO()
+        img.save(buf, format="PNG")
+        st.download_button(
+            label="Download Your Card ✨",
+            data=buf.getvalue(),
+            file_name=f"Eid_Card_{name}.png",
+            mime="image/png"
+        )
+        
+    except Exception as e:
+        st.error(f"Error loading files. Check if 'template.jpg' exists in 'my_app' folder.")
+
+st.markdown("<br><p style='opacity: 0.6;'>Happy Eid to you and your family!</p>", unsafe_allow_html=True)

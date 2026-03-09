@@ -21,6 +21,16 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 st.title("🌙 Ramadan Greeting Card")
 st.write("Put your name and download ✨")
+# --- إضافة سلايدرات التحكم في التصميم ---
+st.sidebar.header("🛠 إعدادات ضبط التصميم")
+X_VAL = st.sidebar.slider("إحداثي التوسيط الأفقية (X)", 0, 3000, 1000)
+Y_VAL = st.sidebar.slider("الموقع العمودي (Y)", 0, 3000, 1200)
+SIZE_VAL = st.sidebar.slider("حجم الخط", 10, 500, 90)
+COLOR_VAL = st.sidebar.color_picker("لون الخط", "#000000")
+
+# لعرض الأرقام النهائية لتسهيل حفظها لاحقاً
+st.sidebar.write(f"القيم الحالية: X={X_VAL}, Y={Y_VAL}, Size={SIZE_VAL}")
+# ---------------------------------------
 
 # المسارات
 template_path = "my_app/template.png"

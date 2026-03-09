@@ -7,17 +7,30 @@ import io
 # 1. إعداد الصفحة (العنوان الذي يظهر في المتصفح)
 st.set_page_config(page_title="بطاقات تهنئة العيد", layout="centered")
 
-# 2. كود إخفاء القوائم والعلامات المائية (لإعطاء مظهر رسمي)
-hide_st_style = """
+# كود لتغيير لون الخلفية وإخفاء القوائم
+# يمكنك تغيير #F5F5DC (اللون البيجي) إلى أي كود لون آخر تفضله
+custom_style = """
             <style>
+            /* تغيير خلفية التطبيق بالكامل */
+            .stApp {
+                background-color: #F5F5DC; 
+            }
+            
+            /* إخفاء القوائم والعناصر المزعجة */
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden; display: none !important;}
             header {visibility: hidden;}
             div[data-testid="stDecoration"] {display: none !important;}
             .stAppDeployButton {display: none !important;}
+            
+            /* تحسين شكل خانة إدخال الاسم لتناسب الخلفية الجديدة */
+            .stTextInput>div>div>input {
+                background-color: #ffffff;
+                border-radius: 10px;
+            }
             </style>
             """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+st.markdown(custom_style, unsafe_allow_html=True)
 
 # 3. القيم الثابتة التي اخترتها أنت (تم تثبيتها لعدم التعديل)
 X_CENTER = 2152
@@ -29,7 +42,7 @@ TEXT_COLOR = "#fff204"  # اللون الأصفر الذي اخترته
 template_path = "my_app/template.jpg"
 font_path = "my_app/font.ttf"
 
-st.title("🌙 تهنئة عيد الفطر المبارك")
+st.title("ِEid Greeting Card ✨")
 st.write("اكتب اسمك أدناه للحصول على بطاقة التهنئة الخاصة بك")
 
 # خانة إدخال الاسم

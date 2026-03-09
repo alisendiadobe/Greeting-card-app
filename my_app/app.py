@@ -46,8 +46,8 @@ custom_style = f"""
     header {{visibility: hidden;}}
     /* Golden Button Style */
     .stDownloadButton > button {{
-        background-color: #fff204 !important;
-        color: #ccb8aa !important;
+        background-color: #4B3621 !important;
+        color: #4B3621 !important;
         border: none;
         border-radius: 12px;
         font-weight: bold;

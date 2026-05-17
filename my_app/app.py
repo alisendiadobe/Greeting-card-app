@@ -66,7 +66,7 @@ st.markdown(custom_style, unsafe_allow_html=True)
 # 3. Fixed Coordinates and Values (Your specific settings)
 X_CENTER = 2152
 Y_POS = 3600
-FONT_SIZE = 200
+FONT_SIZE = 180
 TEXT_COLOR = "#006937"
 TEMPLATE_PATH = "my_app/template.jpg"
 FONT_PATH = "my_app/font.ttf"

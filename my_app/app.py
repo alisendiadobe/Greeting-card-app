@@ -24,7 +24,7 @@ bin_str = get_base64_bin(bg_image_path)
 if bin_str:
     bg_style = f'background-image: url("data:image/jpeg;base64,{bin_str}");'
 else:
-    bg_style = 'background-color: #f7ece4;'
+    bg_style = 'background-color: #e8dbb9;'
 
 custom_style = f"""
     <style>
